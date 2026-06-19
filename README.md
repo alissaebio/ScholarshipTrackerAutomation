@@ -10,6 +10,7 @@ Google Apps Script, Google Sheets, and Python.
 
 ## Contents
 
+- [Why I Built This](#why-i-built-this)
 - [Problem](#problem)
 - [Outcomes](#outcomes)
 - [Key Skills Demonstrated](#key-skills-demonstrated)
@@ -24,6 +25,10 @@ Google Apps Script, Google Sheets, and Python.
 - [Sample Output](#sample-output)
 - [Screenshots](#screenshots)
 
+## Why I Built This
+
+I wanted to explore workflow automation and integration development using 
+Zapier and Google services while solving a real-world organizational problem.
 
 ## Problem
 
