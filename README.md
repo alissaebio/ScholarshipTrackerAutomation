@@ -178,6 +178,7 @@ SUMMARY:
 
 **Google Sheet with parsed scholarship data**
 
+<img width="1520" height="838" alt="Image" src="https://github.com/user-attachments/assets/c8812163-0930-4d88-9ceb-e104f8f5eccc" />
 
 **Digest output in Google Colab**
 
