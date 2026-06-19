@@ -61,7 +61,7 @@ Three interconnected components, each handling a distinct layer:
 - **Date normalization** — converts "June 12, 2026" style dates from email
   bodies to ISO 8601 format (YYYY-MM-DD) for consistent sorting and comparison
 
-## Bugs Found & Fixed During Testing
+## Bugs Found And Fixed During Testing
 
 | Bug | Cause | Fix |
 |---|---|---|
@@ -79,7 +79,7 @@ Three interconnected components, each handling a distinct layer:
 - **Google Sheets**: structured data store
 - **Gmail**: source, filtered via label and search rules
 
-## Zapier Free Tier Limitation & Workaround
+## Zapier Free Tier Limitation And Workaround
 
 Zapier's free plan only supports single-step Zaps. The Webhooks by Zapier
 action (needed to call the Apps Script parser mid-workflow) requires a paid
