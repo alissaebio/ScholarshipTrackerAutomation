@@ -176,11 +176,15 @@ SUMMARY:
 
 <img width="836" height="644" alt="Image" src="https://github.com/user-attachments/assets/5217c570-81c6-4f6f-a4aa-825dc4f07cb1" />
 
-**Google Sheet with parsed scholarship data**
+**Digest output in Google Colab**
 
 <img width="1520" height="838" alt="Image" src="https://github.com/user-attachments/assets/c8812163-0930-4d88-9ceb-e104f8f5eccc" />
 
-**Digest output in Google Colab**
+**Google Sheet with parsed scholarship data**
+
+
+
+
 
 
 
