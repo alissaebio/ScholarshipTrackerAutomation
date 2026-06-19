@@ -28,5 +28,5 @@ mid-workflow) is unavailable without a paid plan.
 The Zap handles raw data ingestion (Gmail → Sheets).
 A separate Google Apps Script webhook handles parsing and cleaning,
 deployed as a Web App and callable independently via HTTP POST.
-This separation also improves maintainability — the parsing logic
+This separation also improves maintainability. The parsing logic
 can be updated without touching the Zap.
