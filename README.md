@@ -49,16 +49,16 @@ Three interconnected components, each handling a distinct layer:
 
 ## Features
 
-- **Multi-record parsing** — one email containing multiple scholarships
+- **Multi-record parsing:** one email containing multiple scholarships
   produces one row per scholarship, not one row per email
-- **Fuzzy duplicate detection** — catches near-duplicates like
+- **Fuzzy duplicate detection:** catches near-duplicates like
   "UCalgary Excellence Award" vs "U of Calgary Excellence Award" (93% match)
   using `rapidfuzz`, with case-insensitive comparison
-- **Deadline flagging** — surfaces scholarships closing within 7 days,
+- **Deadline flagging:** surfaces scholarships closing within 7 days,
   with a configurable `days_ahead` parameter
-- **Idempotency** — the Apps Script webhook checks existing entries before
+- **Idempotency:** the Apps Script webhook checks existing entries before
   writing, so running the same automation twice does not create duplicate rows
-- **Date normalization** — converts "June 12, 2026" style dates from email
+- **Date normalization:** converts "June 12, 2026" style dates from email
   bodies to ISO 8601 format (YYYY-MM-DD) for consistent sorting and comparison
 
 ## Bugs Found And Fixed During Testing
@@ -182,12 +182,5 @@ SUMMARY:
 
 **Google Sheet with parsed scholarship data**
 
+<img width="1048" height="909" alt="Image" src="https://github.com/user-attachments/assets/fe61812b-e661-4004-a99a-1321648c2e5c" />
 
-
-
-
-
-
-*Built as a portfolio project demonstrating Zapier automation, webhook
-integration, and Python scripting for a workflow automation internship
-application.*
