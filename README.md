@@ -2,22 +2,28 @@
 
 A multi-component automation system that captures scholarship opportunities
 from email, parses structured data from email bodies, detects near-duplicate
-entries using fuzzy matching, and flags upcoming deadlines. Built as a
-portfolio project demonstrating workflow automation, data parsing, and
-Python scripting.
+entries using fuzzy matching, and flags upcoming deadlines. Built as an 
+automated workflow system demonstrating integration development, 
+business process automation, troubleshooting, and 
+workflow maintenance, and system reliability across Gmail, Zapier, 
+Google Apps Script, Google Sheets, and Python.
 
 ## Contents
 
 - [Problem](#problem)
+- [Outcomes](#outcomes)
+- [Key Skills Demonstrated](#key-skills-demonstrated)
 - [Solution Architecture](#solution-architecture)
-- [Features](#features)
-- [Bugs Found and Fixed During Testing](#bugs-found-and-fixed-during-testing)
-- [Tech Stack](#tech-stack)
 - [Zapier Free Tier Limitation and Workaround](#zapier-free-tier-limitation-and-workaround)
+- [Testing](#testing)
+- [Bugs Found and Fixed During Testing](#bugs-found-and-fixed-during-testing)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Setup](#setup)
 - [Sample Output](#sample-output)
 - [Screenshots](#screenshots)
+
 
 ## Problem
 
@@ -25,6 +31,28 @@ Scholarship emails from services like ScholarshipsCanada and yconic arrive
 frequently, each containing multiple opportunities with different deadlines,
 amounts, and eligibility criteria. Tracking these manually across a scattered
 inbox is error-prone and easy to fall behind on.
+
+## Outcomes
+
+The system can:
+
+- Parse multiple scholarships from a single email
+- Prevent duplicate records across repeated workflow runs
+- Detect near-duplicate scholarship opportunities
+- Flag upcoming deadlines automatically
+- Generate digest reports from tracked data
+
+## Key Skills Demonstrated
+
+- Workflow Automation
+- Integration Development
+- Zapier
+- Google Apps Script
+- Troubleshooting & Debugging
+- Business Process Automation
+- Data Parsing
+- Python Scripting
+- Workflow Maintenance
 
 ## Solution Architecture
 
@@ -46,6 +74,36 @@ Three interconnected components, each handling a distinct layer:
 | Google Apps Script | Parses email body into structured scholarship records, prevents duplicate writes |
 | Python (Colab) | Fuzzy duplicate detection across entries, deadline flagging, digest report |
 
+## Zapier Free Tier Limitation And Workaround
+
+Zapier's free plan only supports single-step Zaps. The Webhooks by Zapier
+action (needed to call the Apps Script parser mid-workflow) requires a paid
+plan. Rather than upgrading, the architecture was split:
+
+- The Zap handles raw ingestion only (Gmail to Sheets, one step)
+- The Apps Script webhook handles parsing and duplicate-checking independently,
+  callable via HTTP POST from any source
+
+This separation improves maintainability: the parsing logic can be updated
+without modifying the Zap, and the webhook can be tested independently
+using the Python requests library.
+
+
+## Testing
+
+The workflow was tested using sample scholarship emails containing multiple scholarship records, 
+duplicate opportunities, inconsistent capitalization, and varying deadline formats to validate 
+parsing accuracy and duplicate detection behavior. These tests were used to verify parsing accuracy, 
+duplicate detection behavior, and deadline calculations before adding new workflow features.
+
+## Bugs Found And Fixed During Testing
+
+| Bug | Cause | Fix |
+|---|---|---|
+| Deadline flagging missed same-day deadlines | `datetime.now()` includes time, so a deadline of midnight "already passed" by afternoon | Switched to `datetime.now().date()` for date-only comparison |
+| Case-sensitive fuzzy matching missed "Alberta STEM" vs "Alberta Stem" | `fuzz.ratio()` is case-sensitive by default | Applied `.lower()` before comparison |
+| Duplicate rows created on repeated webhook calls | No existence check before writing | Added idempotency check against existing sheet entries |
+| `google-auth` version conflict in Colab | `pip install --upgrade google-auth` overwrote Colab's pinned version | Pinned back to `2.47.0`, avoided upgrading `google-auth` in future sessions |
 
 ## Features
 
@@ -60,15 +118,7 @@ Three interconnected components, each handling a distinct layer:
   writing, so running the same automation twice does not create duplicate rows
 - **Date normalization:** converts "June 12, 2026" style dates from email
   bodies to ISO 8601 format (YYYY-MM-DD) for consistent sorting and comparison
-
-## Bugs Found And Fixed During Testing
-
-| Bug | Cause | Fix |
-|---|---|---|
-| Deadline flagging missed same-day deadlines | `datetime.now()` includes time, so a deadline of midnight "already passed" by afternoon | Switched to `datetime.now().date()` for date-only comparison |
-| Case-sensitive fuzzy matching missed "Alberta STEM" vs "Alberta Stem" | `fuzz.ratio()` is case-sensitive by default | Applied `.lower()` before comparison |
-| Duplicate rows created on repeated webhook calls | No existence check before writing | Added idempotency check against existing sheet entries |
-| `google-auth` version conflict in Colab | `pip install --upgrade google-auth` overwrote Colab's pinned version | Pinned back to `2.47.0`, avoided upgrading `google-auth` in future sessions |
+  
 
 ## Tech Stack
 
@@ -78,20 +128,6 @@ Three interconnected components, each handling a distinct layer:
 - **Zapier**: Gmail trigger, single-step free-tier Zap
 - **Google Sheets**: structured data store
 - **Gmail**: source, filtered via label and search rules
-
-## Zapier Free Tier Limitation And Workaround
-
-Zapier's free plan only supports single-step Zaps. The Webhooks by Zapier
-action (needed to call the Apps Script parser mid-workflow) requires a paid
-plan. Rather than upgrading, the architecture was split:
-
-- The Zap handles raw ingestion only (Gmail to Sheets, one step)
-- The Apps Script webhook handles parsing and duplicate-checking independently,
-  callable via HTTP POST from any source
-
-This separation improves maintainability: the parsing logic can be updated
-without modifying the Zap, and the webhook can be tested independently
-using the Python requests library.
 
 ## Project Structure
 scholarship-tracker-automation/
